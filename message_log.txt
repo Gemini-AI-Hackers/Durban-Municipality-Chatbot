@@ -1,0 +1,78 @@
+2024-08-06 18:39:49 - Interactive - 263784608021: Language Selection
+2024-08-06 18:39:58 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:42:17 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:42:24 - Interactive - 263784608021: Language Selection
+2024-08-06 18:43:52 - Interactive - 263784608021: Language Selection
+2024-08-06 18:43:57 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:46:31 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:46:35 - Text - 263784608021: Good day. How can I assist you today? 
+
+2024-08-06 18:46:47 - Interactive - 263784608021: Language Selection
+2024-08-06 18:46:51 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:48:30 - Interactive - 263784608021: Language Selection
+2024-08-06 18:48:35 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:52:48 - Interactive - 263784608021: Language Selection
+2024-08-06 18:52:54 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:54:05 - Text - 263784608021: Hello! How can I assist you today? 
+
+2024-08-06 18:54:30 - Interactive - 263784608021: Language Selection
+2024-08-06 18:54:34 - Interactive - 263784608021: Operation Selection
+2024-08-06 18:56:05 - Interactive - 263784608021: Language Selection
+2024-08-06 18:56:10 - Interactive - 263784608021: Operation Selection
+2024-08-06 19:17:17 - Text - 263784608021: Hello, how can I assist you today? 
+
+2024-08-06 19:17:38 - Interactive - 263784608021: Language Selection
+2024-08-06 19:17:44 - Interactive - 263784608021: Operation Selection
+2024-08-06 20:41:15 - Interactive - 263784608021: Language Selection
+2024-08-06 20:41:20 - Interactive - 263784608021: Operation Selection
+2024-08-06 20:44:12 - Interactive - 263784608021: Language Selection
+2024-08-06 20:44:18 - Interactive - 263784608021: Operation Selection
+2024-08-06 20:52:14 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 20:53:03 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 20:53:28 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 20:58:13 - Text - 263784608021: Hello, how can I assist you today? 
+
+2024-08-06 20:58:31 - Interactive - 263784608021: Language Selection
+2024-08-06 20:58:36 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:02:04 - Text - 263784608021: Good day. How can I assist you today? 
+
+2024-08-06 21:02:41 - Interactive - 263784608021: Language Selection
+2024-08-06 21:02:57 - Interactive - 263784608021: Language Selection
+2024-08-06 21:03:15 - Interactive - 263784608021: Language Selection
+2024-08-06 21:03:25 - Interactive - 263784608021: Language Selection
+2024-08-06 21:06:54 - Interactive - 263784608021: Language Selection
+2024-08-06 21:06:59 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:07:03 - Interactive - 263784608021: Language Selection
+2024-08-06 21:07:47 - Text - 263773512195: API quota exceeded. Please try again later.
+2024-08-06 21:08:37 - Interactive - 263784608021: Language Selection
+2024-08-06 21:09:03 - Interactive - 263784608021: Language Selection
+2024-08-06 21:12:56 - Interactive - 263784608021: Language Selection
+2024-08-06 21:13:05 - Interactive - 263784608021: Language Selection
+2024-08-06 21:13:10 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:26:53 - Interactive - 263784608021: Language Selection
+2024-08-06 21:26:59 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:27:35 - Interactive - 263784608021: Language Selection
+2024-08-06 21:27:39 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:29:42 - Interactive - 263784608021: Language Selection
+2024-08-06 21:29:48 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:30:46 - Interactive - 263784608021: Language Selection
+2024-08-06 21:30:58 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 21:31:09 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 21:31:16 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 21:31:21 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 21:31:43 - Interactive - 263784608021: Language Selection
+2024-08-06 21:31:48 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:32:02 - Interactive - 263784608021: Language Selection
+2024-08-06 21:32:18 - Text - 263784608021: API quota exceeded. Please try again later.
+2024-08-06 21:55:25 - Interactive - 263784608021: Language Selection
+2024-08-06 21:55:31 - Interactive - 263784608021: Language Selection
+2024-08-06 21:55:36 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:56:54 - Interactive - 263784608021: Language Selection
+2024-08-06 21:56:59 - Interactive - 263784608021: Operation Selection
+2024-08-06 21:57:52 - Interactive - 263784608021: Language Selection
+2024-08-06 21:57:57 - Interactive - 263784608021: Operation Selection
+2024-08-06 22:03:04 - Interactive - 263784608021: Language Selection
+2024-08-06 22:07:55 - Text - 263784608021: Hello, how can I assist you today? 
+
+2024-08-06 22:08:20 - Interactive - 263784608021: Language Selection
+2024-08-06 22:09:58 - Interactive - 263784608021: Operation Selection

@@ -1,0 +1,50 @@
+[
+    {
+        "mobile": "1234567890",
+        "date": "2024-08-01",
+        "nature": "Water leakage",
+        "location": "Main Street",
+        "complaint_id": "C0001",
+        "status": "In Progress"
+    },
+    {
+        "mobile": "0987654321",
+        "date": "2024-08-02",
+        "nature": "Power outage",
+        "location": "High Street",
+        "complaint_id": "C0002",
+        "status": "Under Review"
+    },
+    {
+        "mobile": "1122334455",
+        "date": "2024-08-03",
+        "nature": "Burst pipe",
+        "location": "Low Street",
+        "complaint_id": "C0003",
+        "status": "Solved"
+    },
+    {
+        "mobile": "263784608021",
+        "date": "Today",
+        "nature": "It's a water leak",
+        "location": "Latitude: -20.2886417, Longitude: 30.0530683",
+        "complaint_id": "C0004",
+        "status": "Received"
+    },
+    {
+        "mobile": "263784608021",
+        "date": "Yesterday",
+        "nature": "Its a broken street light",
+        "location": "Latitude: -20.2886067, Longitude: 30.0530867",
+        "complaint_id": "C0005",
+        "status": "Received"
+    },
+    {
+        "mobile": "263784608021",
+        "date": "Namula",
+        "nature": "Bika ukuvuza kwamanzi",
+        "location": "Latitude: -20.2887783, Longitude: 30.05282",
+        "complaint_id": "C0006",
+        "status": "Received"
+    }
+]
