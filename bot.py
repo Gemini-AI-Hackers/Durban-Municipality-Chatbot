@@ -9,15 +9,23 @@ import assemblyai as aai
 from datetime import datetime
 import json
 import time
-
-# from googletrans import Translator
-
-# translator = Translator()
+import PIL.Image
+import firebase_admin
+from firebase_admin import credentials, firestore, storage
 
 load_dotenv()
 genai.configure(
     api_key=os.environ['API_KEY']
 )
+cred = credentials.Certificate("ecomplaintbook-firebase-adminsdk.json")
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'ecomplaintbook.appspot.com'
+})
+
+# Access the Firebase Storage bucket
+bucket = storage.bucket()
+db = firestore.client()
+
 aai.settings.api_key = os.environ['AAI_API_KEY']
 # Initialize Flask App
 app = Flask(__name__)
@@ -40,7 +48,8 @@ class Complaint:
         self.complaint_id = complaint_id
         self.status = status
 
-    def append_to_file(self, file_path="complaints.json"):
+    def save_to_firebase_storage(self, folder="Complaints/"):
+        # Prepare the complaint data
         complaint = {
             "mobile": self.mobile,
             "date": self.date,
@@ -49,33 +58,47 @@ class Complaint:
             "complaint_id": self.complaint_id,
             "status": self.status
         }
-        if os.path.exists(file_path):
-            with open(file_path, "r") as file:
-                complaints = json.load(file)
+
+        # Generate a filename based on complaint_id
+        filename = f"{self.complaint_id}.json"
+
+        # Create a blob (file object) in the specified folder in Firebase Storage
+        blob = bucket.blob(f"{folder}{filename}")
+
+        # Convert the complaint to JSON
+        complaint_json = json.dumps(complaint)
+
+        # Upload the JSON data to Firebase Storage
+        blob.upload_from_string(complaint_json, content_type="application/json")
+
+    @staticmethod
+    def retrieve_by_id(complaint_id, folder="Complaints/"):
+        # Construct the file path in Firebase Storage
+        filename = f"{complaint_id}.json"
+        blob = bucket.blob(f"{folder}{filename}")
+
+        # Check if the file exists in Firebase Storage
+        if blob.exists():
+            complaint_json = blob.download_as_text()
+            complaint = json.loads(complaint_json)
+            return complaint
         else:
-            complaints = []
-        complaints.append(complaint)
-        with open(file_path, "w") as file:
-            json.dump(complaints, file, indent=4)
+            return None
 
     @staticmethod
-    def retrieve_by_id(complaint_id, file_path="complaints.json"):
-        if os.path.exists(file_path):
-            with open(file_path, "r") as file:
-                complaints = json.load(file)
-                for complaint in complaints:
-                    if complaint["complaint_id"] == complaint_id:
-                        return complaint
-        return None
+    def retrieve_all(folder="Complaints/"):
+        # List all files in the specified folder
+        blobs = bucket.list_blobs(prefix=folder)
+        complaints = []
 
-    @staticmethod
-    def retrieve_all(file_path="complaints.json"):
-        if os.path.exists(file_path):
-            with open(file_path, "r") as file:
-                complaints = json.load(file)
-                return complaints
-        return []
+        for blob in blobs:
+            # Only process JSON files
+            if blob.name.endswith(".json"):
+                complaint_json = blob.download_as_text()
+                complaint = json.loads(complaint_json)
+                complaints.append(complaint)
 
+        return complaints
 
 def main(chat):
     @app.route("/", methods=["GET", "POST"])
@@ -128,6 +151,7 @@ def main(chat):
         return new_id
 
     def respond(user_input, instruction):
+
         try:
             response = retry_api_call(chat.send_message, instruction + user_input)
             return response.text
@@ -136,9 +160,18 @@ def main(chat):
 
     def is_greeting(user_input):
         response = respond(user_input,
-                           "Check if user's message is a greeting in either Zulu or English, respond with either True or "
+                           "Check if user's message is a greeting in either Zulu or English, respond with either True "
+                           "or"
                            "False only")
         return 'Yes' if response.strip() == 'True' else 'No'
+
+    def is_complaint(user_input):
+        response = respond(user_input,
+                           "Check if the user's statement is a form of a complaint, if so respond with 'Complaint' "
+                           "only."
+                           "If it is not a complaint check if it a request to lodge a complaint, if so respond with "
+                           "'Request' only.If it doesn't meet any of these checks, respond with 'None' only")
+        return response.strip()
 
     def is_language(user_input):
         languages = ['english', 'zulu']
@@ -180,25 +213,37 @@ def main(chat):
                     image_id, mime_type = image["id"], image["mime_type"]
                     image_url = messenger.query_media_url(image_id)
                     image_filename = messenger.download_media(image_url, mime_type)
-                    response = respond(image_filename, 'Analyse the image and return insights on the image')
+                    image_to_analyze = PIL.Image.open(image_filename)
+                    response = model.generate_content(["In this instance, you are an assistant at Durban "
+                                                       "Municipality, analyse the image and give tips on what to do "
+                                                       "while the user awaits professional assistance if needed, "
+                                                       "if not tell them what to do on their own.",
+                                                       image_to_analyze])
+                    response = response.text
+                    if isinstance(response, str):
+                        response = response
+                    else:
+                        response = json.dumps(response) if isinstance(response, dict) else str(response)
                     messenger.send_message(response, mobile)
                 elif message_type == 'audio':
                     handle_audio_messages(data, mobile)
                 elif message_type == 'interactive':
                     handle_interactive_message(data, mobile)
-                # elif message_type == 'location':
-                #     handle_location_message(data, mobile)
                 else:
                     messenger.send_message(message="Please send me text messages", recipient_id=mobile)
             return jsonify({'status': 'success'}), 200
         return jsonify({'error': 'No messages found'}), 404
 
     def handle_text_message(message, mobile):
+        docs = db.collection('complaints').stream()
         if len(message) > 4096:
             message = message[:4096]
         greeting_status = is_greeting(message)
+        complaint_status = is_complaint(message)
         if str(greeting_status) != 'No':
             send_language_buttons(mobile)
+        if str(complaint_status) != 'None':
+            handle_impromptu_complaints(complaint_status, message, mobile)
         else:
             response = respond(message, 'Respond as a Durban Municipality assistant. Do not include emojis')
             logging.info("\nResponse: %s\n", response)
@@ -387,7 +432,7 @@ def main(chat):
                 complaint_id=user_states[f"{mobile}_complaint_id"],
                 status='Received'
             )
-            complaint.append_to_file()
+            complaint.save_to_firebase_storage()
             messenger.send_message(f"Your complaint has been lodged successfully with ID: {complaint_id}", mobile)
             nature = user_states[f'{mobile}_nature']
             response = respond(nature,
@@ -418,6 +463,18 @@ def main(chat):
             # Clear the state
             del user_states[mobile]
             del user_states[f"{mobile}_stage"]
+
+    def handle_impromptu_complaints(input_type, text, mobile):
+        # Used when a user just sends a message supposed to be a complaint without following the standard procedure
+        user_states[mobile] = "complaint_lodging"
+        if input_type == 'Request':
+            user_states[f"{mobile}_stage"] = "start"
+            response = respond('A user wants to lodge a complaint', 'Ask for the nature of the complaint, keep your '
+                                                                    f'response short, precise and polite.Reply in {language}')
+            handle_complaint_process(mobile, text)
+        else:
+            user_states[f"{mobile}_stage"] = "start"
+            handle_complaint_process(mobile, text)
 
 
 if __name__ == "__main__":
