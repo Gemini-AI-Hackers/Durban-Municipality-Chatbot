@@ -21,15 +21,13 @@ Before you begin, ensure you have the following installed on your system:
 - Python 3.x: [Download Python](https://www.python.org/downloads/)
 - Pip (Python package manager): Included with Python 3.x
 - Ngrok: [Download ngrok](https://ngrok.com/download)
-- A Twilio account with a WhatsApp-enabled phone number: [Sign Up for Twilio](https://www.twilio.com/)
 
 ## Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/whatsapp-chatbot.git
-cd whatsapp-chatbot
+git clone https://github.com/Gemini-AI-Hackers/Durban-Municipality-Chatbot
 ```
 
 ### 2. Install Python Dependencies
@@ -43,20 +41,14 @@ pip install -r requirements.txt
 Alternatively, manually install the necessary packages:
 
 ```bash
-pip install flask twilio
+pip install flask 
 ```
 
 ## Configuration
 
-### 1. Set Up Twilio
+### 1. Configure Your Flask App
 
-- Sign in to your Twilio account.
-- Get your Account SID, Auth Token, and a WhatsApp-enabled phone number.
-- Set up a Twilio Sandbox for WhatsApp and note down the webhook URL.
-
-### 2. Configure Your Flask App
-
-Open the `app.py` file and ensure your Flask app is configured properly.
+Open the `bot.py` file and ensure your Flask app is configured properly.
 
 ## Running the Chatbot
 
@@ -65,7 +57,7 @@ Open the `app.py` file and ensure your Flask app is configured properly.
 Run the Flask server locally:
 
 ```bash
-python app.py
+python bot.py
 ```
 
 ### 2. Expose the Local Server Using ngrok
@@ -77,16 +69,12 @@ ngrok http 5000
 ```
 
 - Copy the `https://<ngrok-id>.ngrok.io` URL provided by ngrok.
-
-### 3. Configure Twilio Webhook
-
-- Go to the Twilio Console.
-- Set the WhatsApp webhook URL to `https://<ngrok-id>.ngrok.io/bot` under the Sandbox settings.
+- Add the URL to Facebook Meta Developers Page
 
 ## Using the Chatbot
 
-- Send a message to your WhatsApp Sandbox number.
-- The chatbot will respond based on the logic defined in `app.py`.
+- Send a message to your WhatsApp number.
+- The chatbot will respond based on the logic defined in `bot.py`.
 
 ### Example Interactions
 
